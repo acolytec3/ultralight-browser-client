@@ -30,6 +30,7 @@ export const App = () => {
     window.Multiaddr = Multiaddr
     setDiscv5(discv5);
     await discv5.start();
+    discv5.enableLogs();
     console.log('started discv5', discv5.isStarted())
     setENR(discv5.enr.encodeTxt(discv5.keypair.privateKey))
     discv5.on('discovered', (msg) => console.log(msg))

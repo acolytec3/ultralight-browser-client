@@ -47,7 +47,7 @@ export const App = () => {
     setENR(discv5.enr.encodeTxt(discv5.keypair.privateKey));
     discv5.on("discovered", (msg) => console.log(msg));
     discv5.on("talkReqReceived", (srcId, enr, msg) => console.log('content requested',msg.request.toString()));
-    discv5.on("talkRespReceived", (srcId, enr, msg) => console.log('what we got back', msg.response.toString()))
+    discv5.on("talkRespReceived", (srcId, enr, msg) => console.log(`got back a response - ${msg.response.toString()} to request ${msg.id}`))
   };
 
   React.useEffect(() => {

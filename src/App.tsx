@@ -18,21 +18,22 @@ export const App = () => {
 
   React.useEffect(() => {
     if (discv5) {
-      setENR(discv5.enr.encodeTxt(discv5.keypair.privateKey))
+      setENR(discv5.enr.encodeTxt(discv5.keypair.privateKey));
     }
-  },[discv5])
+  }, [discv5]);
   const init = async () => {
     const id = await PeerId.create({ keyType: "secp256k1" });
     const enr = ENR.createFromPeerId(id);
     //@ts-ignore
-    enr.setLocationMultiaddr(new Multiaddr("/ip4/127.0.0.1/tcp/0"));
+    enr.setLocationMultiaddr(new Multiaddr("/ip4/127.0.0.1/udp/0"));
     //@ts-ignore
     const discv5 = Discv5.create({
       enr: enr,
       peerId: id,
       //@ts-ignore
-      multiaddr: new Multiaddr("/ip4/127.0.0.1/tcp/0"),
+      multiaddr: new Multiaddr("/ip4/127.0.0.1/udp/0"),
       transport: "wss",
+      proxyAddress: "ws://127.0.0.1:5050",
     });
     //@ts-ignore
     window.discv5 = discv5;
@@ -46,8 +47,10 @@ export const App = () => {
     console.log("started discv5", discv5.isStarted());
     setENR(discv5.enr.encodeTxt(discv5.keypair.privateKey));
     discv5.on("discovered", (msg) => console.log(msg));
-    discv5.on("talkReqReceived", (srcId, enr, msg) => console.log('content requested',msg.request.toString()));
-    discv5.on("talkRespReceived", (srcId, enr, msg) => console.log(`got back a response - ${msg.response.toString()} to request ${msg.id}`))
+    discv5.on("talkReqReceived", (srcId, enr, msg) =>
+      console.log("content requested", msg.request.toString())
+    );
+    //  discv5.on("talkRespReceived", (srcId, enr, msg) => console.log(`got back a response - ${msg.response.toString()} to request ${msg.id}`))
   };
 
   React.useEffect(() => {
@@ -67,4 +70,4 @@ export const App = () => {
       </Box>
     </ChakraProvider>
   );
-};
+};;

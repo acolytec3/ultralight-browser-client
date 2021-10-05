@@ -15,9 +15,9 @@ The `discv5` object is exposed in the browser console and can be used to experim
 
 ## Example Discv5 API calls
 
-`discv5.addEnr("enr:-IS4QOw66SDvvI74NUImT3LaeXtSBspNaFIku6t33bm8PXx0HcZu1yrLRCOvIcxVaB-gyRWM06iZlqcYnCD65IyVw7kBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQNBJfNin_FrzGdqawimygn5j8eq4kOkZuVDIN6-c4XSB4N1ZHCCIzE")` -- adds a node ENR to the local node's address book
-`discv5.broadcastTalkReq("portal-state","0xabcx...").then((res) => console.log(res))` - notionally queries the portal network for a piece of content - will send the TALKREQ message to every peer in the address book
-`discv5.findNode("fb395a91bbd03336c14bd25673bb8f1f2ef89e181e130d7d3244fe837542da9a"))` - queries all peers in the address book for the ENR for the `nodeId` specified in the function call
+* `discv5.addEnr("enr:-IS4QOw66SDvvI74NUImT3LaeXtSBspNaFIku6t33bm8PXx0HcZu1yrLRCOvIcxVaB-gyRWM06iZlqcYnCD65IyVw7kBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQNBJfNin_FrzGdqawimygn5j8eq4kOkZuVDIN6-c4XSB4N1ZHCCIzE")` -- adds a node ENR to the local node's address book
+* `discv5.broadcastTalkReq("portal-state","0xabcx...").then((res) => console.log(res))` - notionally queries the portal network for a piece of content - will send the TALKREQ message to every peer in the address book
+* `discv5.findNode("fb395a91bbd03336c14bd25673bb8f1f2ef89e181e130d7d3244fe837542da9a"))` - queries all peers in the address book for the ENR for the `nodeId` specified in the function call
 
 
 

@@ -1,59 +1,23 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+# DiscV5 Browser Node
 
-## Available Scripts
+This is a proof of concept that will start a discv5 node in the browser that leverages a UDP proxy service to connect to other nodes in the discv5 network
+## Usage
 
-In the project directory, you can run:
+Clone the [UDP Proxy](https://github.com/acolytec3/ultralight-proxy) and install deps. 
 
-### `yarn start`
+Run `npx ts-node src/index.ts` to start the UDP proxy
 
-Runs the app in the development mode.<br /> Open
-[http://localhost:3000](http://localhost:3000) to view it in the browser.
+Clone this repo and install deps.
 
-The page will reload if you make edits.<br /> You will also see any lint errors
-in the console.
+`npm run start` to start the node.
 
-### `yarn test`
+The `discv5` object is exposed in the browser console and can be used to experiment with discv5 network connectivity.
 
-Launches the test runner in the interactive watch mode.<br /> See the section
-about
-[running tests](https://facebook.github.io/create-react-app/docs/running-tests)
-for more information.
+## Example Discv5 API calls
 
-### `yarn build`
+`discv5.addEnr("enr:-IS4QOw66SDvvI74NUImT3LaeXtSBspNaFIku6t33bm8PXx0HcZu1yrLRCOvIcxVaB-gyRWM06iZlqcYnCD65IyVw7kBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQNBJfNin_FrzGdqawimygn5j8eq4kOkZuVDIN6-c4XSB4N1ZHCCIzE")` -- adds a node ENR to the local node's address book
+`discv5.broadcastTalkReq("portal-state","0xabcx...").then((res) => console.log(res))` - notionally queries the portal network for a piece of content - will send the TALKREQ message to every peer in the address book
+`discv5.findNode("fb395a91bbd03336c14bd25673bb8f1f2ef89e181e130d7d3244fe837542da9a"))` - queries all peers in the address book for the ENR for the `nodeId` specified in the function call
 
-Builds the app for production to the `build` folder.<br /> It correctly bundles
-React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br /> Your app is
-ready to be deployed!
 
-See the section about
-[deployment](https://facebook.github.io/create-react-app/docs/deployment) for
-more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can
-`eject` at any time. This command will remove the single build dependency from
-your project.
-
-Instead, it will copy all the configuration files and the transitive
-dependencies (webpack, Babel, ESLint, etc) right into your project so you have
-full control over them. All of the commands except `eject` will still work, but
-they will point to the copied scripts so you can tweak them. At this point
-you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for
-small and middle deployments, and you shouldn’t feel obligated to use this
-feature. However we understand that this tool wouldn’t be useful if you couldn’t
-customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the
-[Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).

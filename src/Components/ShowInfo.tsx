@@ -120,11 +120,11 @@ export default function ShowInfo(props: infoprops) {
                     <div style={col}>
                       0x
                       {Buffer.from(
-                          // @ts-ignore
+                        // @ts-ignore
                         enr.getLocationMultiaddr("udp").toOptions()?.transport
                       ).toString("hex")}
                     </div>
-                    {encodeURIComponent('udp')}
+                    {encodeURIComponent("udp")}
                   </div>
                 </div>
               </div>
@@ -174,23 +174,17 @@ export default function ShowInfo(props: infoprops) {
           </div>
         </div>
         <div style={col}>
-          <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
-            {" "}
-            Is Discv5 here?
-          </h2>
-          <div style={row}></div>{" "}
+          <h2 style={{ textAlign: "center", fontWeight: "bold" }}>ENR</h2>
+          <div style={row}></div>
           <div style={row}>
-            {/* <div style={col}>ENR:</div> */}
             <div style={col}>
               {enr?.encodeTxt(props.discv5.keypair.privateKey)}
             </div>
           </div>
           <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
-            {" "}
             Ethereum Node Record:
           </h2>
           <div style={row}>
-            {/* <div style={col}>ENR:</div> */}
             <div style={col}>
               {`0x${enr
                 ?.encode(props.discv5.keypair.privateKey)
@@ -232,8 +226,6 @@ export default function ShowInfo(props: infoprops) {
       <div style={row}>{newLookupMessage && newLookupMessage}</div>
     </>
   ) : (
-    <div style={row}>
-        discv5:sessionService Starting session service...
-    </div>
+    <div style={row}>discv5:sessionService Starting session service...</div>
   );
 }

@@ -60,14 +60,10 @@ export const App = () => {
 
   return (
     <ChakraProvider theme={theme}>
-      {discv5 && <ShowInfo discv5={discv5} />}
       <Box textAlign="center" fontSize="xl">
         <Grid minH="50vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Text>Is Discv5 here?</Text>
-            {enr && <Text>{enr}</Text>}
-          </VStack>
+          {discv5 && <ShowInfo discv5={discv5} />}
         </Grid>
       </Box>
     </ChakraProvider>

@@ -11,6 +11,7 @@ import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import { ENR, Discv5 } from "@chainsafe/discv5";
 import PeerId from "peer-id";
 import { Multiaddr } from "multiaddr";
+import ShowInfo from "./Components/ShowInfo";
 
 export const App = () => {
   const [discv5, setDiscv5] = React.useState<Discv5>();
@@ -60,12 +61,9 @@ export const App = () => {
   return (
     <ChakraProvider theme={theme}>
       <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
+        <Grid minH="50vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Text>Is Discv5 here?</Text>
-            {enr && <Text>{enr}</Text>}
-          </VStack>
+          {discv5 && <ShowInfo discv5={discv5} />}
         </Grid>
       </Box>
     </ChakraProvider>

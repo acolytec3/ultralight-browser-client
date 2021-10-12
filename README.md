@@ -1,6 +1,6 @@
-# DiscV5 Browser Node
+# Ultralight Browser Node
 
-This is a proof of concept that will start a discv5 node in the browser that leverages a UDP proxy service to connect to other nodes in the discv5 network
+This is a proof of concept that will start Ultralight in the browser that leverages a UDP proxy service to connect to other nodes in the discv5 network
 ## Usage
 
 Clone the [UDP Proxy](https://github.com/acolytec3/ultralight-proxy) and install deps. 

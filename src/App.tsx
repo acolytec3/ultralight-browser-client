@@ -8,7 +8,8 @@ import {
   theme,
 } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
-import { ENR, Discv5 } from "@chainsafe/discv5";
+import { ENR } from "@chainsafe/discv5";
+import { Discv5 } from "portalnetwork";
 import PeerId from "peer-id";
 import { Multiaddr } from "multiaddr";
 import ShowInfo from "./Components/ShowInfo";

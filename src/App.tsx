@@ -1,5 +1,12 @@
 import * as React from "react";
-import { ChakraProvider, Box, Grid, theme } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  Box,
+  Grid,
+  theme,
+  Heading,
+  Button,
+} from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import { ENR } from "@chainsafe/discv5";
 import { PortalNetwork } from "portalnetwork";
@@ -11,6 +18,7 @@ import AddressBookManager from "./Components/AddressBookManager";
 export const App = () => {
   const [portal, setDiscv5] = React.useState<PortalNetwork>();
   const [enr, setENR] = React.useState<string>();
+  const [showInfo, setShowInfo] = React.useState(false);
 
   React.useEffect(() => {
     if (portal) {
@@ -55,12 +63,12 @@ export const App = () => {
       <Box textAlign="center" fontSize="xl">
         <Grid minH="50vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
-          {portal && (
-            <>
-              <ShowInfo discv5={portal.discv5} />
-              <AddressBookManager portal={portal} />
-            </>
-          )}
+          <Heading>Ultralight Node Interface</Heading>
+          <Button disabled={!portal} onClick={() => setShowInfo(!showInfo)}>
+            Show Node Info
+          </Button>
+          {showInfo && <ShowInfo discv5={portal!.discv5} />}
+          {portal && <AddressBookManager portal={portal} />}
         </Grid>
       </Box>
     </ChakraProvider>

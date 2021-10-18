@@ -6,7 +6,7 @@ import { PortalNetwork } from "portalnetwork";
 import PeerId from "peer-id";
 import { Multiaddr } from "multiaddr";
 import ShowInfo from "./Components/ShowInfo";
-import NodeManager from "./Components/NodeManager";
+import AddressBookManager from "./Components/AddressBookManager";
 
 export const App = () => {
   const [portal, setDiscv5] = React.useState<PortalNetwork>();
@@ -58,7 +58,7 @@ export const App = () => {
           {portal && (
             <>
               <ShowInfo discv5={portal.discv5} />
-              <NodeManager portal={portal} />
+              <AddressBookManager portal={portal} />
             </>
           )}
         </Grid>

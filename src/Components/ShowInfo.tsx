@@ -221,7 +221,7 @@ export default function ShowInfo(props: infoprops) {
       </div>
       <div style={row}></div>
       <div style={row}>
-        <Button onClick={() => handleClick()}> discv5.findRandomNode()</Button>
+        <Button onClick={() => handleClick()}> Start Random Node Lookup</Button>
       </div>
       <div style={row}>{newLookupMessage && newLookupMessage}</div>
     </>

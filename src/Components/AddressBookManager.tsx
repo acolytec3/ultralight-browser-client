@@ -6,7 +6,7 @@ type NodeManagerProps = {
   portal: PortalNetwork;
 };
 
-const NodeManager: React.FC<NodeManagerProps> = ({ portal }) => {
+const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
   const [enr, setEnr] = React.useState<string>();
   const handleClick = () => {
     if (enr) {
@@ -26,4 +26,4 @@ const NodeManager: React.FC<NodeManagerProps> = ({ portal }) => {
   );
 };
 
-export default NodeManager;
+export default AddressBookManager;

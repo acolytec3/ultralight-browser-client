@@ -1,10 +1,11 @@
-import { Discv5, ENR } from "@chainsafe/discv5";
+import { ENR } from "@chainsafe/discv5";
 import { Button } from "@chakra-ui/button";
 import PeerId from "peer-id";
+import { PortalNetwork } from "portalnetwork";
 import React, { useEffect, useState } from "react";
 
 type infoprops = {
-  discv5: Discv5;
+  portal: PortalNetwork;
 };
 
 const hexByByte: string[] = [];
@@ -19,30 +20,38 @@ export function toHexString(bytes: Uint8Array = new Uint8Array()): string {
   }
   return hex;
 }
-export default function ShowInfo(props: infoprops) {
+const ShowInfo: React.FC<infoprops> = ({ portal }) => {
+  const discv5 = portal.client;
   const [pid, setPid] = useState<PeerId>();
   const [enr, setENR] = useState<ENR>();
   const [newLookupMessage, setNewLookupMessage] = useState<
     string | undefined
   >();
 
-  const row: React.CSSProperties = { display: "flex", border: "solid black 1px" };
-  const col: React.CSSProperties = { flex: "50%", wordBreak: "break-all", margin: "2px" };
+  const row: React.CSSProperties = {
+    display: "flex",
+    border: "solid black 1px",
+  };
+  const col: React.CSSProperties = {
+    flex: "50%",
+    wordBreak: "break-all",
+    margin: "2px",
+  };
 
   async function perId() {
-    let peerId = props.discv5.enr && (await props.discv5.enr.peerId());
+    let peerId = discv5.enr && (await discv5.enr.peerId());
     setPid(peerId);
   }
 
   useEffect(() => {
-    props.discv5 && setENR(props.discv5.enr);
-    props.discv5 && perId();
+    discv5 && setENR(discv5.enr);
+    discv5 && perId();
     setNewLookupMessage("");
-}, []); // eslint-disable-line
+  }, []); // eslint-disable-line
 
   function handleClick() {
     setNewLookupMessage("discv5:service Starting a new lookup...");
-    props.discv5.findRandomNode().then((res) => {
+    discv5.findRandomNode().then((res) => {
       setNewLookupMessage(`finished. ${res.length} found`);
     });
   }
@@ -177,18 +186,14 @@ export default function ShowInfo(props: infoprops) {
           <h2 style={{ textAlign: "center", fontWeight: "bold" }}>ENR</h2>
           <div style={row}></div>
           <div style={row}>
-            <div style={col}>
-              {enr?.encodeTxt(props.discv5.keypair.privateKey)}
-            </div>
+            <div style={col}>{enr?.encodeTxt(discv5.keypair.privateKey)}</div>
           </div>
           <h2 style={{ textAlign: "center", fontWeight: "bold" }}>
             Ethereum Node Record:
           </h2>
           <div style={row}>
             <div style={col}>
-              {`0x${enr
-                ?.encode(props.discv5.keypair.privateKey)
-                .toString("hex")}`}
+              {`0x${enr?.encode(discv5.keypair.privateKey).toString("hex")}`}
             </div>
           </div>
           <h2 style={{ textAlign: "center", fontWeight: "bold" }}>Node Id: </h2>
@@ -228,4 +233,6 @@ export default function ShowInfo(props: infoprops) {
   ) : (
     <div style={row}>discv5:sessionService Starting session service...</div>
   );
-}
+};
+
+export default ShowInfo;

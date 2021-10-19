@@ -22,7 +22,7 @@ export const App = () => {
 
   React.useEffect(() => {
     if (portal) {
-      setENR(portal.discv5.enr.encodeTxt(portal.discv5.keypair.privateKey));
+      setENR(portal.client.enr.encodeTxt(portal.client.keypair.privateKey));
     }
   }, [portal]);
   const init = async () => {
@@ -36,19 +36,21 @@ export const App = () => {
       transport: "wss",
       proxyAddress: "ws://127.0.0.1:5050",
     });
+    console.log(portal);
     //@ts-ignore
-    window.discv5 = portal.discv5;
+    window.discv5 = portal.client;
     //@ts-ignore
     window.Multiaddr = Multiaddr;
     //@ts-ignore
     window.ENR = ENR;
     setDiscv5(portal);
-    await portal.discv5.start();
-    portal.discv5.enableLogs();
-    console.log("started discv5", portal.discv5.isStarted());
-    setENR(portal.discv5.enr.encodeTxt(portal.discv5.keypair.privateKey));
-    portal.discv5.on("discovered", (msg) => console.log(msg));
-    portal.discv5.on("talkReqReceived", (srcId, enr, msg) =>
+
+    await portal.client.start();
+    portal.client.enableLogs();
+    console.log("started discv5", portal.client.isStarted());
+    setENR(portal.client.enr.encodeTxt(portal.client.keypair.privateKey));
+    portal.client.on("discovered", (msg) => console.log(msg));
+    portal.client.on("talkReqReceived", (srcId, enr, msg) =>
       console.log("content requested", msg.request.toString())
     );
     //  discv5.on("talkRespReceived", (srcId, enr, msg) => console.log(`got back a response - ${msg.response.toString()} to request ${msg.id}`))
@@ -67,7 +69,7 @@ export const App = () => {
           <Button disabled={!portal} onClick={() => setShowInfo(!showInfo)}>
             Show Node Info
           </Button>
-          {showInfo && <ShowInfo discv5={portal!.discv5} />}
+          {showInfo && <ShowInfo portal={portal!} />}
           {portal && <AddressBookManager portal={portal} />}
         </Grid>
       </Box>

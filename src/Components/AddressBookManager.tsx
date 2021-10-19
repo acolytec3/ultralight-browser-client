@@ -10,7 +10,7 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
   const [enr, setEnr] = React.useState<string>();
   const handleClick = () => {
     if (enr) {
-      portal.discv5.addEnr(enr);
+      portal.client.addEnr(enr);
       setEnr("");
     }
   };

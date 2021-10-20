@@ -45,15 +45,12 @@ export const App = () => {
     window.ENR = ENR;
     setDiscv5(portal);
 
-    await portal.client.start();
-    portal.client.enableLogs();
+    await portal.start();
+
+    portal.enableLog();
     console.log("started discv5", portal.client.isStarted());
     setENR(portal.client.enr.encodeTxt(portal.client.keypair.privateKey));
-    portal.client.on("discovered", (msg) => console.log(msg));
-    portal.client.on("talkReqReceived", (srcId, enr, msg) =>
-      console.log("content requested", msg.request.toString())
-    );
-    //  discv5.on("talkRespReceived", (srcId, enr, msg) => console.log(`got back a response - ${msg.response.toString()} to request ${msg.id}`))
+    portal.client.on("discovered", (msg) => console.log("discovered", msg));
   };
 
   React.useEffect(() => {

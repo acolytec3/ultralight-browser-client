@@ -14,6 +14,11 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
       setEnr("");
     }
   };
+
+  const handlePing = () => {
+    portal.sendPing();
+  };
+
   return (
     <Box>
       <Input
@@ -22,6 +27,7 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
         onChange={(evt) => setEnr(evt.target.value)}
       ></Input>
       <Button onClick={handleClick}>Add Node</Button>
+      <Button onClick={handlePing}>Send Ping</Button>
     </Box>
   );
 };

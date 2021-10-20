@@ -51,9 +51,15 @@ const ShowInfo: React.FC<infoprops> = ({ portal }) => {
 
   function handleClick() {
     setNewLookupMessage("discv5:service Starting a new lookup...");
-    discv5.findRandomNode().then((res) => {
-      setNewLookupMessage(`finished. ${res.length} found`);
-    });
+    discv5
+      .findNode(
+        Math.random()
+          .toString(32)
+          .replace(/[^a-z]+/g, "")
+      )
+      .then((res) => {
+        setNewLookupMessage(`finished. ${res.length} found`);
+      });
   }
 
   return enr ? (

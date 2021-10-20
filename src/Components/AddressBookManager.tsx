@@ -1,4 +1,4 @@
-import { Box, Button, Input, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Input, Text } from "@chakra-ui/react";
 import { PortalNetwork } from "portalnetwork";
 import React from "react";
 
@@ -8,15 +8,20 @@ type NodeManagerProps = {
 
 const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
   const [enr, setEnr] = React.useState<string>();
+  const [peers, setPeers] = React.useState<string[]>([]);
+
   const handleClick = () => {
     if (enr) {
       portal.client.addEnr(enr);
       setEnr("");
+      const peerENRs = portal.client.kadValues();
+      const newPeers = peerENRs.map((peer) => peer.nodeId);
+      setPeers(newPeers);
     }
   };
 
-  const handlePing = () => {
-    portal.sendPing();
+  const handlePing = (nodeId: string) => {
+    portal.sendPing(nodeId);
   };
 
   return (
@@ -27,7 +32,13 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
         onChange={(evt) => setEnr(evt.target.value)}
       ></Input>
       <Button onClick={handleClick}>Add Node</Button>
-      <Button onClick={handlePing}>Send Ping</Button>
+      {peers.length > 0 &&
+        peers.map((peer) => (
+          <HStack>
+            <Text>{peer.slice(10)}...</Text>
+            <Button onClick={() => handlePing(peer)}>Send Ping</Button>
+          </HStack>
+        ))}
     </Box>
   );
 };

@@ -3,7 +3,9 @@
 This is a proof of concept that will start Ultralight in the browser that leverages a UDP proxy service to connect to other nodes in the discv5 network
 ## Usage
 
-Clone the [UDP Proxy](https://github.com/acolytec3/ultralight-proxy) and install deps. 
+Run `npm run install-proxy` to install the UDP proxy
+
+Run `npm run run-proxy` to run the proxy. Optionally pass in your IP address as the first parameter (i.e. `npm run run-proxy 192.168.0.100`).  Not doing may prevent other nodes from initiating connections with your client.
 
 Run `npx ts-node src/index.ts` to start the UDP proxy
 

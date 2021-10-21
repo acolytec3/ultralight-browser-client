@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@chainsafe/discv5": "github:acolytec3/discv5#cd5825a153d09deb2d5052a2aa87ef5eb4764e68",
+    "@chainsafe/discv5": "github:acolytec3/discv5#07662571ed02da6b59b5b40fc1a4cec8562efe50",
     "@chakra-ui/react": "^1.0.0",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "framer-motion": "^4.0.0",
     "multiaddr": "^10.0.0",
     "peer-id": "^0.15.2",
-    "portalnetwork": "github:acolytec3/portalnetwork",
+    "portalnetwork": "file:../portalnetwork/dist",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^3.0.0",
@@ -19,6 +19,8 @@
     "web-vitals": "^0.2.2"
   },
   "scripts": {
+    "install-proxy": "git clone https://github.com/acolytec3/ultralight-proxy.git && cd ultralight-proxy && npm i",
+    "run-proxy": "ts-node ultralight-proxy/src/index.ts [YOUR IP ADDRESS HERE]",
     "start": "craco start",
     "build": "craco build",
     "test": "react-scripts test",
@@ -50,6 +52,7 @@
     "@types/jest": "^25.0.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0"
+    "@types/react-dom": "^16.9.0",
+    "ts-node": "^10.3.1"
   }
 }

@@ -5,7 +5,7 @@ This is a proof of concept that will start Ultralight in the browser that levera
 
 Run `npm run install-proxy` to install the UDP proxy
 
-Run `npm run run-proxy` to run the proxy. Optionally pass in your IP address as the first parameter (i.e. `npm run run-proxy 192.168.0.100`).  Not doing may prevent other nodes from initiating connections with your client.
+Run `npm run run-proxy` to run the proxy. Optionally pass in your IP address as the first parameter (i.e. `npm run run-proxy -- 192.168.0.100`).  Not doing may prevent other nodes from initiating connections with your client.
 
 Run `npx ts-node src/index.ts` to start the UDP proxy
 

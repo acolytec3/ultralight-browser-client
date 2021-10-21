@@ -20,7 +20,7 @@
   },
   "scripts": {
     "install-proxy": "git clone https://github.com/acolytec3/ultralight-proxy.git && cd ultralight-proxy && npm i",
-    "run-proxy": "ts-node ultralight-proxy/src/index.ts [YOUR IP ADDRESS HERE]",
+    "run-proxy": "ts-node ultralight-proxy/src/index.ts",
     "start": "craco start",
     "build": "craco build",
     "test": "react-scripts test",

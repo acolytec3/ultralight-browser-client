@@ -34,7 +34,7 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
       <Button onClick={handleClick}>Add Node</Button>
       {peers.length > 0 &&
         peers.map((peer) => (
-          <HStack>
+          <HStack key={Math.random().toString()}>
             <Text>{peer.slice(10)}...</Text>
             <Button onClick={() => handlePing(peer)}>Send Ping</Button>
           </HStack>

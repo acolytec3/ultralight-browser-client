@@ -24,6 +24,10 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
     portal.sendPing(nodeId);
   };
 
+  const handleFindNodes = (nodeId: string) => {
+    portal.sendFindNodes(nodeId, Uint16Array.from([0, 1, 2, 3, 4]));
+  };
+
   return (
     <Box>
       <Input
@@ -37,6 +41,9 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
           <HStack key={Math.random().toString()}>
             <Text>{peer.slice(10)}...</Text>
             <Button onClick={() => handlePing(peer)}>Send Ping</Button>
+            <Button onClick={() => handleFindNodes(peer)}>
+              Request Nodes from Peer
+            </Button>
           </HStack>
         ))}
     </Box>

@@ -7,7 +7,7 @@ type NodeManagerProps = {
 };
 
 const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
-  const [enr, setEnr] = React.useState<string>();
+  const [enr, setEnr] = React.useState<string>("");
   const [peers, setPeers] = React.useState<string[]>([]);
 
   const handleClick = () => {
@@ -25,7 +25,8 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
   };
 
   const handleFindNodes = (nodeId: string) => {
-    portal.sendFindNodes(nodeId, Uint16Array.from([0, 1, 2, 3, 4]));
+    console.log([0]);
+    portal.sendFindNodes(nodeId, [0]);
   };
 
   return (

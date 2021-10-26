@@ -25,8 +25,7 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
   };
 
   const handleFindNodes = (nodeId: string) => {
-    console.log([0]);
-    portal.sendFindNodes(nodeId, [0]);
+    portal.sendFindNodes(nodeId, Uint16Array.from([0, 1, 2]));
   };
 
   return (

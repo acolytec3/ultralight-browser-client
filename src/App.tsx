@@ -15,6 +15,8 @@ import { Multiaddr } from "multiaddr";
 import ShowInfo from "./Components/ShowInfo";
 import AddressBookManager from "./Components/AddressBookManager";
 
+const debug = require("debug");
+
 export const App = () => {
   const [portal, setDiscv5] = React.useState<PortalNetwork>();
   const [enr, setENR] = React.useState<string>();
@@ -36,7 +38,6 @@ export const App = () => {
       transport: "wss",
       proxyAddress: "ws://127.0.0.1:5050",
     });
-    console.log(portal);
     //@ts-ignore
     window.discv5 = portal.client;
     //@ts-ignore
@@ -48,7 +49,6 @@ export const App = () => {
     await portal.start();
 
     portal.enableLog();
-    console.log("started discv5", portal.client.isStarted());
     setENR(portal.client.enr.encodeTxt(portal.client.keypair.privateKey));
     portal.client.on("discovered", (msg) => console.log("discovered", msg));
   };

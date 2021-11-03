@@ -39,7 +39,7 @@ export const App = () => {
       proxyAddress: "ws://127.0.0.1:5050",
     });
     //@ts-ignore
-    window.discv5 = portal.client;
+    window.discv5 = portal;
     //@ts-ignore
     window.Multiaddr = Multiaddr;
     //@ts-ignore
@@ -51,6 +51,9 @@ export const App = () => {
     portal.enableLog();
     setENR(portal.client.enr.encodeTxt(portal.client.keypair.privateKey));
     portal.client.on("discovered", (msg) => console.log("discovered", msg));
+    portal.client.on("talkRespReceived", (src, enr, msg) =>
+      console.log("Msg received", msg)
+    );
   };
 
   React.useEffect(() => {

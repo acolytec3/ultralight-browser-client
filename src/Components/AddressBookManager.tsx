@@ -28,6 +28,14 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
     portal.sendFindNodes(nodeId, Uint16Array.from([0, 1, 2]));
   };
 
+  const handleFindContent = (nodeId: string) => {
+    portal.sendFindContent(nodeId, new Uint8Array(16).fill(0));
+  };
+
+  const handleOffer = (nodeId: string) => {
+    portal.sendOffer(nodeId, [new Uint8Array(16).fill(0)]);
+  };
+
   return (
     <Box>
       <Input
@@ -44,6 +52,10 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
             <Button onClick={() => handleFindNodes(peer)}>
               Request Nodes from Peer
             </Button>
+            <Button onClick={() => handleFindContent(peer)}>
+              Send Find Content Request
+            </Button>
+            <Button onClick={() => handleOffer(peer)}>Send Offer</Button>
           </HStack>
         ))}
     </Box>

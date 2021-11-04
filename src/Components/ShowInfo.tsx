@@ -154,8 +154,8 @@ const ShowInfo: React.FC<infoprops> = ({ portal }) => {
                 {enr
                   ?.getLocationMultiaddr("udp")
                   ?.protoCodes()
-                  .map((code) => {
-                    return <div style={col}>{code}</div>;
+                  .map((code, idx) => {
+                    return <div key={idx} style={col}>{code}</div>;
                   })}
               </div>
             </div>
@@ -168,17 +168,15 @@ const ShowInfo: React.FC<infoprops> = ({ portal }) => {
                 {enr
                   ?.getLocationMultiaddr("udp")
                   ?.protos()
-                  .map((proto) => {
+                  .map((proto, idx) => {
                     return (
-                      <div style={col}>
-                        {Object.entries(proto).map(([k, v]) => {
+                      <div key={idx} style={col}>
+                        {Object.entries(proto).map(([k, v], idx) => {
                           return (
-                            <>
-                              <div style={row}>
+                              <div key={idx} style={row}>
                                 <div style={col}>{`${k}:`}</div>
                                 <div style={col}>{`${v}`}</div>
                               </div>
-                            </>
                           );
                         })}
                       </div>

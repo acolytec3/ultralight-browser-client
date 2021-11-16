@@ -1,4 +1,12 @@
-import { Box, Button, HStack, Input, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Input,
+  SimpleGrid,
+  Text,
+  Wrap,
+} from "@chakra-ui/react";
 import { PortalNetwork } from "portalnetwork";
 import React from "react";
 
@@ -36,6 +44,12 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
     portal.sendOffer(nodeId, [new Uint8Array(16).fill(0)]);
   };
 
+  const handleUtpStream = (nodeId: string) => {
+    portal.sendUTPStreamRequest(
+      nodeId,
+      new Uint8Array(2).fill(Math.floor(Math.random()))
+    );
+  };
   return (
     <Box>
       <Input
@@ -48,14 +62,19 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
         peers.map((peer) => (
           <HStack key={Math.random().toString()}>
             <Text>{peer.slice(10)}...</Text>
-            <Button onClick={() => handlePing(peer)}>Send Ping</Button>
-            <Button onClick={() => handleFindNodes(peer)}>
-              Request Nodes from Peer
-            </Button>
-            <Button onClick={() => handleFindContent(peer)}>
-              Send Find Content Request
-            </Button>
-            <Button onClick={() => handleOffer(peer)}>Send Offer</Button>
+            <Wrap spacing="5px">
+              <Button onClick={() => handlePing(peer)}>Send Ping</Button>
+              <Button onClick={() => handleFindNodes(peer)}>
+                Request Nodes from Peer
+              </Button>
+              <Button onClick={() => handleFindContent(peer)}>
+                Send Find Content Request
+              </Button>
+              <Button onClick={() => handleOffer(peer)}>Send Offer</Button>
+              <Button onClick={() => handleUtpStream(peer)}>
+                Start uTP Stream
+              </Button>
+            </Wrap>
           </HStack>
         ))}
     </Box>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@chainsafe/discv5": "github:acolytec3/discv5#07662571ed02da6b59b5b40fc1a4cec8562efe50",
+    "@chainsafe/discv5": "github:acolytec3/discv5#287ffb20558837b7b12156070d3877566d45d7d2",
     "@chakra-ui/react": "^1.0.0",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",

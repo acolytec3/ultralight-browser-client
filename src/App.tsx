@@ -6,6 +6,9 @@ import {
   theme,
   Heading,
   Button,
+  Text,
+  Tooltip,
+  useClipboard,
 } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import { ENR } from "@chainsafe/discv5";
@@ -19,8 +22,9 @@ const debug = require("debug");
 
 export const App = () => {
   const [portal, setDiscv5] = React.useState<PortalNetwork>();
-  const [enr, setENR] = React.useState<string>();
+  const [enr, setENR] = React.useState<string>("");
   const [showInfo, setShowInfo] = React.useState(false);
+  const { hasCopied, onCopy } = useClipboard(enr);
 
   React.useEffect(() => {
     if (portal) {
@@ -69,6 +73,13 @@ export const App = () => {
           <Button disabled={!portal} onClick={() => setShowInfo(!showInfo)}>
             Show Node Info
           </Button>
+          {enr && (
+            <Tooltip label="click to copy">
+              <Text onClick={onCopy} cursor="pointer">
+                {enr.slice(0, 15)}...
+              </Text>
+            </Tooltip>
+          )}
           {showInfo && <ShowInfo portal={portal!} />}
           {portal && <AddressBookManager portal={portal} />}
         </Grid>

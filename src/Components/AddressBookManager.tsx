@@ -45,10 +45,7 @@ const AddressBookManager: React.FC<NodeManagerProps> = ({ portal }) => {
   };
 
   const handleUtpStream = (nodeId: string) => {
-    portal.sendUTPStreamRequest(
-      nodeId,
-      new Uint8Array(2).fill(Math.floor(Math.random()))
-    );
+    portal.sendUtpStreamRequest(nodeId);
   };
   return (
     <Box>

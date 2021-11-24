@@ -9,6 +9,7 @@ import {
   Text,
   Tooltip,
   useClipboard,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { ColorModeSwitcher } from "./ColorModeSwitcher";
 import { ENR } from "@chainsafe/discv5";
@@ -17,20 +18,13 @@ import PeerId from "peer-id";
 import { Multiaddr } from "multiaddr";
 import ShowInfo from "./Components/ShowInfo";
 import AddressBookManager from "./Components/AddressBookManager";
-
-const debug = require("debug");
-
+import Log from "./Components/Log";
 export const App = () => {
   const [portal, setDiscv5] = React.useState<PortalNetwork>();
-  const [enr, setENR] = React.useState<string>("");
+  const [enr, setENR] = React.useState<React.ReactElement>();
   const [showInfo, setShowInfo] = React.useState(false);
-  const { hasCopied, onCopy } = useClipboard(enr);
+  const { hasCopied, onCopy } = useClipboard(""); // eslint-disable-line
 
-  React.useEffect(() => {
-    if (portal) {
-      setENR(portal.client.enr.encodeTxt(portal.client.keypair.privateKey));
-    }
-  }, [portal]);
   const init = async () => {
     const id = await PeerId.create({ keyType: "secp256k1" });
     const enr = ENR.createFromPeerId(id);
@@ -53,37 +47,42 @@ export const App = () => {
     await portal.start();
 
     portal.enableLog();
-    setENR(portal.client.enr.encodeTxt(portal.client.keypair.privateKey));
     portal.client.on("discovered", (msg) => console.log("discovered", msg));
     portal.client.on("talkRespReceived", (src, enr, msg) =>
       console.log("Msg received", msg)
     );
-  };
+      };
 
   React.useEffect(() => {
     init();
-  }, []);
+      }, []);
 
   return (
     <ChakraProvider theme={theme}>
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="50vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <Heading>Ultralight Node Interface</Heading>
-          <Button disabled={!portal} onClick={() => setShowInfo(!showInfo)}>
-            Show Node Info
-          </Button>
-          {enr && (
+      <ColorModeSwitcher justifySelf="flex-end" />
+      <Heading textAlign="center">Ultralight Node Interface</Heading>
+      <SimpleGrid columns={2}>
+        <Box textAlign="center" fontSize="xl">
+          <Grid minH="50vh" p={3}>
+            <Button disabled={!portal} onClick={() => setShowInfo(true)}>
+              Click to Start
+            </Button>
+            {showInfo && (
             <Tooltip label="click to copy">
-              <Text onClick={onCopy} cursor="pointer">
-                {enr.slice(0, 15)}...
+              <Text onClick={onCopy} wordBreak="break-all" cursor="pointer">
+                {portal?.client.enr.encodeTxt(portal.client.keypair.privateKey)}
               </Text>
             </Tooltip>
           )}
-          {showInfo && <ShowInfo portal={portal!} />}
-          {portal && <AddressBookManager portal={portal} />}
-        </Grid>
+            {showInfo && <ShowInfo portal={portal!} />}
+          </Grid>
+        </Box>
+        <Box>{portal && <AddressBookManager portal={portal} />}</Box>
+      </SimpleGrid>
+      <Box position="fixed" bottom="0">
+        {" "}
+        {portal && <Log portal={portal} />}{" "}
       </Box>
     </ChakraProvider>
   );
-};;
+};

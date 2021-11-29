@@ -73,13 +73,6 @@ export const App = () => {
           <Button disabled={!portal} onClick={() => setShowInfo(!showInfo)}>
             Show Node Info
           </Button>
-          {enr && (
-            <Tooltip label="click to copy">
-              <Text onClick={onCopy} cursor="pointer">
-                {enr.slice(0, 15)}...
-              </Text>
-            </Tooltip>
-          )}
           {showInfo && <ShowInfo portal={portal!} />}
           {portal && <AddressBookManager portal={portal} />}
         </Grid>

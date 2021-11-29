@@ -1,5 +1,5 @@
 import * as chakra from "@chakra-ui/layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { PortalNetwork } from "portalnetwork";
 
@@ -12,16 +12,20 @@ type logProps = {
 export default function Log(props: logProps) {
   const [output, setOutput] = useState<any[]>([]);
 
-
+  useEffect(() => {
     props.portal.on("log", (msg) => {
-        let out = [...output];
-        out.push(msg)
-        setOutput(out.slice(-10));
-    })
+      let out = [...output];
+      out.push(msg);
+      setOutput(out.slice(-10));
+    });
+    return function () {
+      props.portal.removeAllListeners("log");
+    };
+  });
 
   return (
     <chakra.Box>
-      <chakra.Code style={{textAlign: "start"}}>
+      <chakra.Code style={{ textAlign: "start" }}>
         {output.map((string, idx) => {
           return <div key={idx}>{string}</div>;
         })}

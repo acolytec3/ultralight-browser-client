@@ -21,9 +21,9 @@ import AddressBookManager from "./Components/AddressBookManager";
 import Log from "./Components/Log";
 export const App = () => {
   const [portal, setDiscv5] = React.useState<PortalNetwork>();
-  const [enr, setENR] = React.useState<React.ReactElement>();
+  const [enr, setENR] = React.useState<string>("");
   const [showInfo, setShowInfo] = React.useState(false);
-  const { hasCopied, onCopy } = useClipboard(""); // eslint-disable-line
+  const { hasCopied, onCopy } = useClipboard(enr); // eslint-disable-line
 
   const init = async () => {
     const id = await PeerId.create({ keyType: "secp256k1" });
@@ -51,12 +51,19 @@ export const App = () => {
     portal.client.on("talkRespReceived", (src, enr, msg) =>
       console.log("Msg received", msg)
     );
-      };
+  };
 
   React.useEffect(() => {
     init();
-      }, []);
+  }, []);
 
+  const copy = async () => {
+    console.log("got here!");
+    await setENR(
+      portal?.client.enr.encodeTxt(portal.client.keypair.privateKey) ?? ""
+    );
+    onCopy();
+  };
   return (
     <ChakraProvider theme={theme}>
       <ColorModeSwitcher justifySelf="flex-end" />
@@ -68,20 +75,21 @@ export const App = () => {
               Click to Start
             </Button>
             {showInfo && (
-            <Tooltip label="click to copy">
-              <Text onClick={onCopy} wordBreak="break-all" cursor="pointer">
-                {portal?.client.enr.encodeTxt(portal.client.keypair.privateKey)}
-              </Text>
-            </Tooltip>
-          )}
+              <Tooltip label="click to copy">
+                <Text onClick={copy} wordBreak="break-all" cursor="pointer">
+                  {portal?.client.enr.encodeTxt(
+                    portal.client.keypair.privateKey
+                  )}
+                </Text>
+              </Tooltip>
+            )}
             {showInfo && <ShowInfo portal={portal!} />}
           </Grid>
         </Box>
         <Box>{portal && <AddressBookManager portal={portal} />}</Box>
       </SimpleGrid>
       <Box position="fixed" bottom="0">
-        {" "}
-        {portal && <Log portal={portal} />}{" "}
+        {portal && <Log portal={portal} />}
       </Box>
     </ChakraProvider>
   );
